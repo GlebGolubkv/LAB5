@@ -1,4 +1,19 @@
 {
+  "8" : {
+    "id" : 5,
+    "name" : "df",
+    "coordinates" : {
+      "x" : 4,
+      "y" : 4.0
+    },
+    "creationDate" : "2026-03-01T09:21:59.512489Z",
+    "numberOfParticipants" : 452,
+    "albumsCount" : 23442563645765857,
+    "genre" : "BLUES",
+    "label" : {
+      "bands" : 23
+    }
+  },
   "7" : {
     "id" : 4,
     "name" : "4",
