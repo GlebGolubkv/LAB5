@@ -3,7 +3,7 @@ package FileManager.CommandsParser;
 import Data.DataCommands;
 
 import DataClasses.MusicBand;
-import TermenalManager.BandsInputFromFile;
+import TermenalManager.BandsFileReader;
 
 import TermenalManager.Colors;
 
@@ -118,7 +118,7 @@ public class CommandsReader {
 
         if (Objects.equals(command[0], "remove_lower") & command.length == 1) {
             try {
-                MusicBand musicBand = BandsInputFromFile.getInstance().InputBand(reader);
+                MusicBand musicBand = BandsFileReader.getInstance().InputBand(reader);
                 return musicBand;
             } catch (Exception e) {
                 throw new IllegalArgumentException("Error reading MusicBand from file.");
@@ -127,7 +127,7 @@ public class CommandsReader {
 
         } else if (Objects.equals(command[0], "update") & command.length == 2) {
             try {
-                MusicBand musicBand = BandsInputFromFile.getInstance().InputBand(Integer.parseInt(command[1]), reader);
+                MusicBand musicBand = BandsFileReader.getInstance().InputBand(Integer.parseInt(command[1]), reader);
                 return musicBand;
             } catch (Exception e) {
                 throw new IllegalArgumentException("Error reading MusicBand from file.");
@@ -138,7 +138,7 @@ public class CommandsReader {
         } else if ((Objects.equals(command[0], "insert") || Objects.equals(command[0], "replace_if_greater") || Objects.equals(command[0], "replace_if_lower")) & command.length == 2) {
 
             try {
-                MusicBand musicBand = BandsInputFromFile.getInstance().InputBand(reader);
+                MusicBand musicBand = BandsFileReader.getInstance().InputBand(reader);
                 return musicBand;
             } catch (Exception e) {
                 throw new IllegalArgumentException("Error reading MusicBand from file.");

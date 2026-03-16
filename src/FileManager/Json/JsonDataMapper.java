@@ -4,13 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-public class Mapper {
+public class JsonDataMapper {
 
-    private static Mapper instance;
+    private static JsonDataMapper instance;
     private final ObjectMapper mapper;
 
 
-    private Mapper() {
+    private JsonDataMapper() {
 
         this.mapper = new ObjectMapper();
         //регаем новый модуль
@@ -23,7 +23,7 @@ public class Mapper {
     }
 
 
-    public static Mapper getInstance() {
+    public static JsonDataMapper getInstance() {
         if (instance == null) {
             throw new NullPointerException("Mapper has not been initialized");
         }
@@ -32,7 +32,7 @@ public class Mapper {
 
     public static void initialize() {
         if (instance == null) {
-            instance = new Mapper();
+            instance = new JsonDataMapper();
         } else {
             throw new IllegalStateException("Mapper has already been initialized");
         }

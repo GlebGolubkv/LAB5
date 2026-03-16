@@ -1,5 +1,5 @@
 import Data.DataCommands;
-import Data.InitializeManager;
+import Data.DataInitializer;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -10,7 +10,7 @@ public class Main {
         String fileName = args[0];
 
 
-        InitializeManager.initialize(fileName);
+        DataInitializer.initialize(fileName);
 
         Scanner scanner = new Scanner(System.in);
 

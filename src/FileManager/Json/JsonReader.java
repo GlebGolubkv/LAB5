@@ -50,7 +50,7 @@ public class JsonReader {
 
 
 
-            Hashtable<Integer, MusicBand> map = Mapper.getInstance().getMapper().readValue(file, new TypeReference<Hashtable<Integer, MusicBand>>() {
+            Hashtable<Integer, MusicBand> map = JsonDataMapper.getInstance().getMapper().readValue(file, new TypeReference<Hashtable<Integer, MusicBand>>() {
             });
 
             return map;

@@ -2,19 +2,19 @@ package Data;
 
 import FileManager.CommandsParser.CommandsReader;
 import FileManager.Json.*;
-import TermenalManager.BandsInputFromFile;
+import TermenalManager.BandsFileReader;
 import TermenalManager.BandsInputManager;
 
-public class InitializeManager {
+public class DataInitializer {
 
-    public static InitializeManager instance;
+    public static DataInitializer instance;
 
-    private InitializeManager(String fileName) {
+    private DataInitializer(String fileName) {
 
-        Mapper.initialize();
+        JsonDataMapper.initialize();
         DataCommands.initialize();
         BandsInputManager.initialize();
-        BandsInputFromFile.initialize();
+        BandsFileReader.initialize();
         CommandsReader.initialize();
         JsonWriter.initialize(fileName);
         JsonReader.initialize(fileName);
@@ -25,7 +25,7 @@ public class InitializeManager {
 
     }
 
-    public static InitializeManager getInstance() {
+    public static DataInitializer getInstance() {
         if (instance == null) {
             throw new RuntimeException("Data has not been initialized");
         }
@@ -34,7 +34,7 @@ public class InitializeManager {
 
     public static void initialize(String fileName) {
         if (instance == null) {
-            instance = new InitializeManager(fileName);
+            instance = new DataInitializer(fileName);
         } else {
             throw new RuntimeException("Data has not been initialized");
         }

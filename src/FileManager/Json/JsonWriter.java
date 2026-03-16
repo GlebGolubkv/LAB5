@@ -49,7 +49,7 @@ public class JsonWriter {
 
 
             //записываем в файл
-            Mapper.getInstance().getMapper().writeValue(file, oldMap);
+            JsonDataMapper.getInstance().getMapper().writeValue(file, oldMap);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -68,7 +68,7 @@ public class JsonWriter {
 
 
             //записываем в файл
-            Mapper.getInstance().getMapper().writeValue(file, newMap);
+            JsonDataMapper.getInstance().getMapper().writeValue(file, newMap);
 
 
         } catch (IOException e) {

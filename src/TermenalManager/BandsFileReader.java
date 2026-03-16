@@ -10,19 +10,19 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.time.ZonedDateTime;
 
-public class BandsInputFromFile {
+public class BandsFileReader {
 
     /**
      * Класс, который позволяет вводить новый объект MusicBand
      */
 
 
-    private static TermenalManager.BandsInputFromFile instance;
+    private static BandsFileReader instance;
 
-    private BandsInputFromFile() {
+    private BandsFileReader() {
     }
 
-    public static TermenalManager.BandsInputFromFile getInstance() {
+    public static BandsFileReader getInstance() {
         if (instance == null) {
             throw new IllegalStateException("BandsInputFromFile has not been initialized");
         }
@@ -31,7 +31,7 @@ public class BandsInputFromFile {
 
     public static void initialize() {
         if (instance == null) {
-            instance = new TermenalManager.BandsInputFromFile();
+            instance = new BandsFileReader();
         } else {
             throw new IllegalStateException("BandsInputFromFile has already been initialized");
         }
