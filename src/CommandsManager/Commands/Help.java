@@ -2,25 +2,26 @@ package CommandsManager.Commands;
 
 import CommandsManager.Command;
 import Data.DataCommands;
-import TernemalManager.Colors;
-
-import java.awt.*;
+import DataClasses.MusicBand;
+import TermenalManager.Colors;
 
 public class Help extends Command {
-    public Help() {}
+
+    public Help() {
+    }
 
 
     @Override
     public void execute() {
         StringBuilder helpCommands = new StringBuilder();
-        DataCommands data = new DataCommands();
-        for (String name : data.getNames()){
+        DataCommands data = DataCommands.getInstance();
+        for (String name : data.getNames()) {
             helpCommands.append(Colors.WHITE + "Command: " + Colors.GREEN)
-                    .append(name).append(" : " + Colors.RESET).append(data.getCommand(name).getCommandIfo()).append("\n");
+                    .append(name).append(" : " + Colors.RESET).append(data.getCommand(name).commandInfo()).append("\n");
 
         }
         System.out.println();
-        System.out.println( Colors.GREEN +"Commands: " + Colors.RESET);
+        System.out.println(Colors.GREEN + "Commands: " + Colors.RESET);
         System.out.println(helpCommands);
         System.out.println();
 
@@ -28,7 +29,20 @@ public class Help extends Command {
 
     @Override
     public void execute(String value1) {
-        throw new UnsupportedOperationException("Not supported");
+
+        System.out.println();
+        System.out.println(Colors.RED + "Not supported" + Colors.RESET);
+        System.out.println();
+    }
+
+    @Override
+    public void execute(String value1, MusicBand value2) {
+
+    }
+
+    @Override
+    public void execute(MusicBand value1) {
+
     }
 
     @Override

@@ -1,6 +1,6 @@
 package DataClasses;
 
-import TernemalManager.Colors;
+import TermenalManager.Colors;
 
 /**
  * Класс, который описывает объект типа Label

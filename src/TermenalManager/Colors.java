@@ -1,4 +1,4 @@
-package TernemalManager;
+package TermenalManager;
 
 public enum Colors {
     RESET("\033[0;0m"),

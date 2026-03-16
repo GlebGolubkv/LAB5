@@ -2,17 +2,20 @@ package CommandsManager.Commands;
 
 import CommandsManager.Command;
 import Data.ClassesManager;
-import TernemalManager.Colors;
+import DataClasses.MusicBand;
+import TermenalManager.Colors;
 
 public class Count_by_number_of_participants extends Command {
     @Override
     public void execute() {
-        throw new UnsupportedOperationException("Not supported");
+        System.out.println();
+        System.out.println(Colors.RED + "Not supported" + Colors.RESET);
+        System.out.println();
     }
 
     @Override
     public void execute(String value1) {
-        ClassesManager classesManager = new ClassesManager();
+        ClassesManager classesManager = ClassesManager.getInstance();
         int count_participant = 0;
         int number_of_participants = CheckInteger(value1);
         for (int key : classesManager.GetMap().keySet()) {
@@ -24,6 +27,16 @@ public class Count_by_number_of_participants extends Command {
         System.out.println("The number participants of equal " + Colors.GREEN + number_of_participants + Colors.RESET +
                 "s is " + Colors.GREEN + count_participant + Colors.RESET);
         System.out.println();
+
+    }
+
+    @Override
+    public void execute(String value1, MusicBand value2) {
+
+    }
+
+    @Override
+    public void execute(MusicBand value1) {
 
     }
 

@@ -4,24 +4,38 @@ import CommandsManager.Command;
 import Data.ClassesManager;
 import Data.KeyGenerator;
 import DataClasses.MusicBand;
-import TernemalManager.BandsInputManager;
+import TermenalManager.BandsInputManager;
+import TermenalManager.Colors;
 
 import java.util.Scanner;
 
 public class Insert extends Command {
     @Override
     public void execute() {
-        throw new UnsupportedOperationException("Not supported");
+        System.out.println();
+        System.out.println(Colors.RED + "Not supported" + Colors.RESET);
+        System.out.println();
     }
 
     @Override
     public void execute(String value1) {
-        ClassesManager classesManager = new ClassesManager();
         int key = keyChek(value1);
         Scanner scanner = new Scanner(System.in);
-        MusicBand musicBand = new BandsInputManager().InputBand(scanner);
-        classesManager.addMusicBandToCollection(key, musicBand);
+        MusicBand musicBand = BandsInputManager.getInstance().InputBand(scanner);
+        ClassesManager.getInstance().addMusicBandToCollection(key, musicBand);
 
+
+    }
+
+    @Override
+    public void execute(String value1, MusicBand musicBand){
+        int key = keyChek(value1);
+        ClassesManager.getInstance().addMusicBandToCollection(key, musicBand);
+
+    }
+
+    @Override
+    public void execute(MusicBand value1) {
 
     }
 
@@ -44,7 +58,7 @@ public class Insert extends Command {
         }
 
         //если уже есть в массиве
-        if (!ClassesManager.Map.containsKey(newKey)) {
+        if (!ClassesManager.getInstance().GetMap().containsKey(newKey)) {
             return newKey;
         } else {
             int newGenerateKey = new KeyGenerator().generateNewKey();

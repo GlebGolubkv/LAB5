@@ -3,21 +3,23 @@ package CommandsManager.Commands;
 import CommandsManager.Command;
 import Data.ClassesManager;
 
-import TernemalManager.Colors;
-
+import DataClasses.MusicBand;
+import TermenalManager.Colors;
 
 
 public class Remove_key extends Command {
     @Override
     public void execute() {
-        throw new UnsupportedOperationException("Not supported");
+        System.out.println();
+        System.out.println(Colors.RED + "Not supported" + Colors.RESET);
+        System.out.println();
 
     }
 
     @Override
     public void execute(String value1) {
         int key = CheckInteger(value1);
-        ClassesManager cm = new ClassesManager();
+        ClassesManager cm = ClassesManager.getInstance();
         if (cm.keyInMap(key)) {
             cm.removeMusicBandFromCollection(key);
             System.out.println();
@@ -25,10 +27,20 @@ public class Remove_key extends Command {
             System.out.println();
         } else {
             System.out.println();
-            System.out.println(Colors.RED + "Invalid key. Key: " + key +  Colors.RESET);
+            System.out.println(Colors.RED + "Invalid key. Key: " + key + Colors.RESET);
 
         }
 
+
+    }
+
+    @Override
+    public void execute(String value1, MusicBand value2) {
+
+    }
+
+    @Override
+    public void execute(MusicBand value1) {
 
     }
 

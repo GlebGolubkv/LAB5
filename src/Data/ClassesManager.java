@@ -2,74 +2,56 @@ package Data;
 
 import DataClasses.MusicBand;
 import FileManager.Json.JsonParser;
-import TernemalManager.Colors;
+import TermenalManager.Colors;
 
-import java.util.HashMap;
 import java.util.Hashtable;
 
-/**
- * Класс, который реализует всю работу с данными
- * <p>
- *     Один из основных классов программы, который при первой инициализации считывает данные из файла,
- *     а далее работает с ними.
- * </p>
- */
-public class ClassesManager {
 
-    public static Hashtable<Integer, MusicBand> Map = new Hashtable<>();
-    public static String fileName;
-    public HashMap<Integer, MusicBand> getMap;
+public class ClassesManager {                           // переписать метод tostring в отдельный метод
+    private static ClassesManager instance;
+    private final Hashtable<Integer, MusicBand> Map;
 
-    /**
-     * Пустой конструктор, нужный для обычной инициализации
-     */
-    public ClassesManager() {
+
+    private ClassesManager(String filename) {
+
+        Map = JsonParser.getInstance().ReadAllClassesAtFile();
     }
 
-    /**
-     * Конструктор, необходимый для первоначальной инициализации в начале работы программы. Считывает данные из файла
-     * @param fileName
-     */
-    public ClassesManager(String fileName) {
-
-        ClassesManager.fileName = fileName;
-        Map = new JsonParser(fileName).ReadAllClassesAtFile();
+    public static ClassesManager getInstance() {
+        if (instance == null) {
+            throw new RuntimeException("ClassesManager not initialized");
+        }
+        return instance;
     }
 
-    /**
-     * Метод получаения размера коллекции
-     * @return размер коллекции
-     */
+    public static synchronized void initialize(String fileName) {
+
+
+        if (instance == null) {
+            instance = new ClassesManager(fileName);
+        } else {
+            throw new RuntimeException("ClassesManager already initialized");
+        }
+
+
+    }
+
+
     public int MapSize() {
         return Map.size();
     }
 
-    /**
-     * Метод получения даты создания файла
-     * @return дата создания файла
-     */
-    public String GetCreationDate() {
-        return new JsonParser(fileName).getCreationTimeOfFile();
-    }
 
+    public String GetCreationDate() {
+        return JsonParser.getInstance().getCreationTimeOfFile();
+    }
 
 
     public String GetCollectionType() {
         return Colors.GREEN + "Collection Type: " + Colors.RESET + Map.getClass().getName();
     }
 
-    /**
-     * Метод, позволяющий получить копию коллекции
-     * @return копия коллекции
-     */
-    public static Hashtable<Integer, MusicBand> getCopyOfMap() {
-        return new Hashtable<>(Map); // копия
-    }
 
-    /**
-     * Метод, позволяющий получить коллекцию с последующей возможностью ее изменения
-     * @return коллекция
-     */
     public Hashtable<Integer, MusicBand> GetMap() {
         return Map;
     }
@@ -100,17 +82,13 @@ public class ClassesManager {
         return s.toString();
     }
 
-    /**
-     * Метод, который сохраняет коллекцию в файл
-     */
+
     public void SaveCollectionToFile() {
-        JsonParser jsonParser = new JsonParser(fileName);
+        JsonParser jsonParser = JsonParser.getInstance();
         jsonParser.WriteLibraryToFile(Map);
     }
 
-    /**
-     *  Метод, который очищает коллекцию
-     */
+
     public void ClearCollection() {
         Map.clear();
     }

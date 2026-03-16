@@ -3,15 +3,20 @@ package CommandsManager.Commands;
 import CommandsManager.Command;
 import Data.ClassesManager;
 import DataClasses.MusicBand;
-import TernemalManager.BandsInputManager;
+import TermenalManager.BandsInputManager;
+import TermenalManager.Colors;
 
 import java.util.Hashtable;
 import java.util.Scanner;
 
 public class Update extends Command {
+
+
     @Override
     public void execute() {
-        throw new UnsupportedOperationException("Not supported");
+        System.out.println();
+        System.out.println(Colors.RED + "Not supported" + Colors.RESET);
+        System.out.println();
     }
 
     @Override
@@ -19,7 +24,20 @@ public class Update extends Command {
         Scanner scanner = new Scanner(System.in);
 
         int key = RemoveBandByID(CheckInteger(value1));
-        new ClassesManager().GetMap().put(key, new BandsInputManager().InputBand(CheckInteger(value1), scanner));
+        ClassesManager.getInstance().GetMap().put(key, BandsInputManager.getInstance().InputBand(CheckInteger(value1), scanner));
+
+    }
+
+    @Override
+    public void execute(String value1, MusicBand value2) {
+
+        int key = RemoveBandByID(CheckInteger(value1));
+        ClassesManager.getInstance().GetMap().put(key, value2);
+
+    }
+
+    @Override
+    public void execute(MusicBand value1) {
 
     }
 
@@ -30,7 +48,7 @@ public class Update extends Command {
 
 
     public int RemoveBandByID(int ID) {
-        Hashtable<Integer, MusicBand> Map = new ClassesManager().GetMap();
+        Hashtable<Integer, MusicBand> Map = ClassesManager.getInstance().GetMap();
 
         for (int key : Map.keySet()) {
             if (ID == Map.get(key).getId()) {

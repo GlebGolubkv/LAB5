@@ -2,9 +2,7 @@ package FileManager.Json;
 
 
 import DataClasses.MusicBand;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 
 import java.io.*;
 import java.util.Hashtable;
@@ -15,17 +13,33 @@ import java.util.Hashtable;
  */
 public class JsonWriter {
 
-    String fileName;
+    private static JsonWriter instance;
+    private final String fileName;
 
-    public JsonWriter(String fileName) {
+    private JsonWriter(String fileName) {
         this.fileName = fileName;
     }
 
-    public JsonWriter(String fileName, int key, MusicBand musicBand) {
-        this.fileName = fileName;
+    public static JsonWriter getInstance() {
+        if (instance == null) {
+            throw new IllegalStateException("JsonWriter has not been initialized");
+        }
+
+        return instance;
+    }
+
+    public static void initialize(String fileName) {
+        if (instance == null) {
+            instance = new JsonWriter(fileName);
+        } else {
+            throw new IllegalStateException("JsonWriter has already been initialized");
+        }
+    }
+
+    public void writeValue(int key, MusicBand musicBand) {
 
         //в oldMap записываем копию текущего файла
-        Hashtable<Integer, MusicBand> oldMap = new JsonReader(fileName).readFile();
+        Hashtable<Integer, MusicBand> oldMap = JsonReader.getInstance().readFile();
         oldMap.put(key, musicBand);
 
 
@@ -33,29 +47,19 @@ public class JsonWriter {
         try (FileOutputStream file = new FileOutputStream(fileName)) {
 
 
-            // создаем и настраиваем мэппер
-            ObjectMapper mapper = new ObjectMapper();
-            //регаем новый модуль
-            mapper.registerModule(new JavaTimeModule());
-            //выставляем читаемую запись в файле
-            mapper.enable(SerializationFeature.INDENT_OUTPUT);
-            //выставляем отображение времени в файле
-            mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
             //записываем в файл
-            mapper.writeValue(file, oldMap);
+            Mapper.getInstance().getMapper().writeValue(file, oldMap);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
+
     // получает на вход сразу список значений
-    public JsonWriter(String fileName, Hashtable<Integer, MusicBand> newMap) {
-        this.fileName = fileName;
 
-
+    public void writeMap(Hashtable<Integer, MusicBand> newMap) {
 
 
         // создает поток записи в файл. Перезаписывает с нуля
@@ -63,17 +67,8 @@ public class JsonWriter {
         try (FileOutputStream file = new FileOutputStream(fileName)) {
 
 
-
-            // создаем и настраиваем мэппер
-            ObjectMapper mapper = new ObjectMapper();
-            //регаем новый модуль
-            mapper.registerModule(new JavaTimeModule());
-            //выставляем читаемую запись в файле
-            mapper.enable(SerializationFeature.INDENT_OUTPUT);
-            //выставляем отображение времени в файле
-            mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
             //записываем в файл
-            mapper.writeValue(file, newMap);
+            Mapper.getInstance().getMapper().writeValue(file, newMap);
 
 
         } catch (IOException e) {

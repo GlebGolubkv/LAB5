@@ -17,7 +17,7 @@ public class IDGenerator {
         int maxId = 1;
 
 
-        Hashtable<Integer, MusicBand> Map = ClassesManager.getCopyOfMap();
+        Hashtable<Integer, MusicBand> Map = ClassesManager.getInstance().GetMap();
 
         for (MusicBand mb : Map.values()) {
             if (maxId <= mb.getId()) {

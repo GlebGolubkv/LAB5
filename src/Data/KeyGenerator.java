@@ -17,7 +17,7 @@ public class KeyGenerator {
     public int generateNewKey() {
 
 
-        Hashtable<Integer, MusicBand> Map =  ClassesManager.getCopyOfMap();
+        Hashtable<Integer, MusicBand> Map =  ClassesManager.getInstance().GetMap();
 
         return Collections.max(Map.keySet()) + 1;
     }

@@ -2,9 +2,6 @@ package FileManager.Json;
 
 import DataClasses.MusicBand;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,12 +13,29 @@ import java.util.Hashtable;
  */
 public class JsonReader {
 
-    String fileName;
+    private static JsonReader instance;
+    private final String fileName;
 
-    public JsonReader(String filename) {
+    private JsonReader(String filename) {
         this.fileName = filename;
     }
 
+
+    public static JsonReader getInstance() {
+        if (instance == null) {
+            throw  new IllegalStateException("JsonReader has not been initialized");
+        }
+        return instance;
+    }
+
+    public static void initialize(String fileName) {
+        if (instance == null) {
+            instance = new JsonReader(fileName);
+        }
+        else {
+            throw new IllegalStateException("JsonReader has already been initialized");
+        }
+    }
 
     public Hashtable<Integer, MusicBand> readFile() {
 
@@ -33,12 +47,10 @@ public class JsonReader {
 
         try (FileInputStream file = new FileInputStream(fileName)) {
 
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.registerModule(new JavaTimeModule());
-            mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
 
-            Hashtable<Integer, MusicBand> map = mapper.readValue(file, new TypeReference<Hashtable<Integer, MusicBand>>() {
+
+            Hashtable<Integer, MusicBand> map = Mapper.getInstance().getMapper().readValue(file, new TypeReference<Hashtable<Integer, MusicBand>>() {
             });
 
             return map;

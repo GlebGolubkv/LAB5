@@ -1,9 +1,8 @@
 package DataClasses;
 
-import TernemalManager.Colors;
+import TermenalManager.Colors;
 
 import java.time.ZonedDateTime;
-import java.io.Serializable;
 
 /**
  * Класс, который описывает объект типа MusicBand

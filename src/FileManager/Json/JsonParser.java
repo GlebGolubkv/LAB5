@@ -13,10 +13,26 @@ import java.util.Hashtable;
  */
 public class JsonParser {
 
-    String fileName;
+    private static JsonParser instance;
 
-    public JsonParser(String fileName) {
-        this.fileName = fileName;
+
+    public static void initialize()
+    {
+        if (instance == null) {
+            instance = new JsonParser();
+        }
+        else throw new IllegalStateException("JsonParser has been already initialized");
+    }
+
+    public static JsonParser getInstance(){
+        if (instance == null) {
+            throw new IllegalStateException("JsonParser has not been initialized");
+        }
+        return instance;
+    }
+
+    private JsonParser() {
+
     }
 
     /**
@@ -26,7 +42,7 @@ public class JsonParser {
      */
 
     public void WriteOneClassToFile(int key, MusicBand musicBand) {
-        new JsonWriter(fileName, key, musicBand);
+        JsonWriter.getInstance().writeValue( key, musicBand);
 
     }
 
@@ -35,7 +51,7 @@ public class JsonParser {
      * @param Map
      */
     public void WriteLibraryToFile(Hashtable<Integer, MusicBand> Map) {
-        new JsonWriter(fileName, Map);
+        JsonWriter.getInstance().writeMap(Map);
     }
 
     /**
@@ -44,15 +60,14 @@ public class JsonParser {
      */
 
     public Hashtable<Integer, MusicBand> ReadAllClassesAtFile() {
-        return new JsonReader(fileName).readFile();
+        return JsonReader.getInstance().readFile();
     }
 
     /**
      * Метод отчищает файл
      */
     public void CleanFile() {
-        new JsonCleaner(fileName).cleanFile();
-
+        JsonCleaner.getInstance().cleanFile();
     }
 
     /**
@@ -60,7 +75,7 @@ public class JsonParser {
      * @return дата создания файла
      */
     public String getCreationTimeOfFile() {
-        return new JsonDateReader(fileName).getCreationTime();
+        return JsonDateReader.getInstance().getCreationTime();
     }
 
 

@@ -1,14 +1,15 @@
 package CommandsManager.Commands;
 
-import CommandsManager.Builder.ClearBuilder;
+
 import CommandsManager.Command;
 import Data.ClassesManager;
-import TernemalManager.Colors;
+import DataClasses.MusicBand;
+import TermenalManager.Colors;
 
 public class Clear extends Command {
     @Override
     public void execute() {
-        new ClassesManager().ClearCollection();
+        ClassesManager.getInstance().ClearCollection();
         System.out.println();
         System.out.println(Colors.GREEN + "Collection cleared" + Colors.RESET);
         System.out.println();
@@ -17,7 +18,20 @@ public class Clear extends Command {
 
     @Override
     public void execute(String value1) {
-        throw new UnsupportedOperationException("Not supported");
+
+        System.out.println();
+        System.out.println(Colors.RED + "Not supported" + Colors.RESET);
+        System.out.println();
+    }
+
+    @Override
+    public void execute(String value1, MusicBand value2) {
+
+    }
+
+    @Override
+    public void execute(MusicBand value1) {
+
     }
 
     @Override

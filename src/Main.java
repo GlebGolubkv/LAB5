@@ -1,5 +1,5 @@
-import Data.ClassesManager;
 import Data.DataCommands;
+import Data.InitializeManager;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -8,7 +8,10 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws IOException {
         String fileName = args[0];
-        ClassesManager cm = new ClassesManager(fileName);
+
+
+        InitializeManager.initialize(fileName);
+
         Scanner scanner = new Scanner(System.in);
 
 
@@ -17,7 +20,7 @@ public class Main {
             System.out.print("Enter command: ");
 
             String line = scanner.nextLine().trim();
-            new DataCommands().createCommandByName(line);
+            DataCommands.getInstance().createCommandByName(line);
         }
 
 

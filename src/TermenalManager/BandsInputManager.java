@@ -1,4 +1,4 @@
-package TernemalManager;
+package TermenalManager;
 
 import Data.IDGenerator;
 import DataClasses.Coordinates;
@@ -16,8 +16,29 @@ import java.util.Scanner;
 
 public class BandsInputManager {
 
+    private static BandsInputManager instance;
+
+    private BandsInputManager() {
+    }
+
+    public static BandsInputManager getInstance() {
+        if (instance == null) {
+            throw new IllegalStateException("BandsInputManager has not been initialized");
+        }
+        return instance;
+    }
+
+    public static void initialize() {
+        if (instance == null) {
+            instance = new BandsInputManager();
+        } else {
+            throw new IllegalStateException("BandsInputManager has already been initialized");
+        }
+    }
+
     /**
      * Базовый ввод нового объекта
+     *
      * @param scanner
      * @return введенный MusicBand
      */
@@ -52,8 +73,10 @@ public class BandsInputManager {
         return musicBand;
     }
 
+
     /**
      * Кастомный ввод нового обьекта, где ID задается вручную
+     *
      * @param ID
      * @param scanner
      * @return Введенный кастомный MusicBand

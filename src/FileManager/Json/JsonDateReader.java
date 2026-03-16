@@ -1,6 +1,6 @@
 package FileManager.Json;
 
-import TernemalManager.Colors;
+import TermenalManager.Colors;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,21 +10,32 @@ import java.nio.file.attribute.FileTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
-/**
- * Класс считывает дату создания коллекции
- */
+
 public class JsonDateReader {
 
-    String fileName;
-    public JsonDateReader(String fileName) {
+    private static JsonDateReader instance;
+    private final String fileName;
+
+    private JsonDateReader(String fileName) {
         this.fileName = fileName;
 
     }
 
-    /**
-     * Метод, который считывает дату создания коллекции
-     * @return Дата создания коллекции
-     */
+    public static JsonDateReader getInstance() {
+        if (instance == null) {
+            throw new IllegalStateException("JsonDateReader has not been initialized");
+        }
+        return instance;
+    }
+
+    public static void initialize(String fileName) {
+        if (instance == null) {
+            instance = new JsonDateReader(fileName);
+        }
+        else throw new IllegalStateException("JsonDateReader has been initialized");
+    }
+
+
     public String getCreationTime() {
         Path path = Paths.get(fileName);
 
